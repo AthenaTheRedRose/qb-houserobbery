@@ -87,7 +87,8 @@ local function PoliceCall()
         chance = 25
     end
     if math.random(1, 100) <= chance then
-        TriggerServerEvent('police:server:policeAlert', 'Attempted House Robbery')
+        Wait(10000)
+        exports["ps-dispatch"]:HouseRobbery()
     end
 end
 
@@ -188,6 +189,7 @@ local function searchCabin(cabin)
         SetTimeout(500, function()
             IsLockpicking = false
         end)
+        PoliceCall()
     end)
 end
 
@@ -234,7 +236,7 @@ RegisterNetEvent('lockpicks:UseLockpick', function(isAdvanced)
             if closestHouse ~= nil then
                 if CurrentCops >= Config.MinimumHouseRobberyPolice then
                     if not Config.Houses[closestHouse]["opened"] then
-                        PoliceCall()
+                        --PoliceCall()
                         TriggerEvent('qb-lockpick:client:openLockpick', lockpickFinish)
                         if math.random(1, 100) <= 85 and not IsWearingHandshoes() then
                             local pos = GetEntityCoords(PlayerPedId())
@@ -253,7 +255,7 @@ RegisterNetEvent('lockpicks:UseLockpick', function(isAdvanced)
                     if result then
                         if CurrentCops >= Config.MinimumHouseRobberyPolice then
                             if not Config.Houses[closestHouse]["opened"] then
-                                PoliceCall()
+                                --PoliceCall()
                                 TriggerEvent('qb-lockpick:client:openLockpick', lockpickFinish)
                                 if math.random(1, 100) <= 85 and not IsWearingHandshoes() then
                                     local pos = GetEntityCoords(PlayerPedId())
